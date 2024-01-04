@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991713192487",
+    "project_id": "attend-pro-f777c",
+    "storage_bucket": "attend-pro-f777c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991713192487:android:49dfd565d1c98d76a3fc02",
+        "android_client_info": {
+          "package_name": "com.example.attend_pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNtb25ipu-NasKUu-62bPjpDdmSs23_fc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
