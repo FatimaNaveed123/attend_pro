@@ -1,3 +1,4 @@
+import 'package:attend_pro/views/select_role.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen.dart';
@@ -6,9 +7,10 @@ class SkipScreenThree extends StatelessWidget {
   const SkipScreenThree({Key? key});
 
   final double containerPosition = 0.0;
-
   @override
   Widget build(BuildContext context) {
+    Role selectedRole = Role.student;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(

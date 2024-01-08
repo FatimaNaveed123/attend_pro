@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../components/purple_button.dart';
 import '../views/login_screen.dart';
 import '../views/select_role.dart';
 
@@ -23,7 +24,12 @@ class _RegisterStudentState extends State<RegisterStudent> {
   final TextEditingController passwordController = new TextEditingController();
   final TextEditingController confirmpassController =
       new TextEditingController();
-  final TextEditingController name = new TextEditingController();
+  final TextEditingController semesterController = new TextEditingController();
+  final TextEditingController rollNoController = new TextEditingController();
+
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController rollNo = new TextEditingController();
+
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController mobile = new TextEditingController();
   bool _isObscure = true;
@@ -33,16 +39,20 @@ class _RegisterStudentState extends State<RegisterStudent> {
   Widget build(BuildContext context) {
     print(widget.selectedRole.name);
     return Scaffold(
-      backgroundColor: Colors.orange[900],
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Image.asset(
+              'images/signup_1.png', // Replace with your image path
+              width: double.infinity,
+            ),
             Container(
-              color: Colors.orangeAccent[700],
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 child: Container(
+                  color: Colors.black12,
                   margin: EdgeInsets.all(12),
                   child: Form(
                     key: _formkey,
@@ -54,25 +64,60 @@ class _RegisterStudentState extends State<RegisterStudent> {
                           height: 80,
                         ),
                         Text(
-                          "Register Now",
+                          "Sign Up",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             fontSize: 40,
                           ),
                         ),
+                        Text(
+                          "Plz Sign in to continue",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
-                          height: 50,
+                        //fullname
+                        TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            label: Text(
+                              "Full Name",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            icon: Icon(
+                              Icons.drive_file_rename_outline,
+                              color: Colors.white,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                          ),
                         ),
+
+                        //email
+
                         TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Email',
+                            label: Text(
+                              "Email",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            icon: Icon(
+                              Icons.email,
+                              color: Colors.white,
+                            ),
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 8.0),
@@ -100,9 +145,51 @@ class _RegisterStudentState extends State<RegisterStudent> {
                           onChanged: (value) {},
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
-                          height: 20,
+                        //roll no
+                        TextFormField(
+                          controller: rollNoController,
+                          decoration: InputDecoration(
+                            label: Text(
+                              "Roll No",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            icon: Icon(
+                              Icons.numbers,
+                              color: Colors.white,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                          ),
                         ),
+                        //semester
+                        TextFormField(
+                          controller: semesterController,
+                          decoration: InputDecoration(
+                            label: Text(
+                              "Semester",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            icon: Icon(
+                              Icons.schedule,
+                              color: Colors.white,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        //password
                         TextFormField(
                           obscureText: _isObscure,
                           controller: passwordController,
@@ -116,9 +203,14 @@ class _RegisterStudentState extends State<RegisterStudent> {
                                     _isObscure = !_isObscure;
                                   });
                                 }),
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Password',
+                            icon: Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              "Password",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 15.0),
@@ -160,9 +252,14 @@ class _RegisterStudentState extends State<RegisterStudent> {
                                     _isObscure2 = !_isObscure2;
                                   });
                                 }),
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Confirm Password',
+                            icon: Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                            ),
+                            label: Text(
+                              "Confirm Password",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 15.0),
@@ -188,19 +285,6 @@ class _RegisterStudentState extends State<RegisterStudent> {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Rool : ",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           height: 20,
                         ),
@@ -208,66 +292,37 @@ class _RegisterStudentState extends State<RegisterStudent> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.0))),
-                              elevation: 5.0,
-                              height: 40,
-                              onPressed: () {
-                                CircularProgressIndicator();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              color: Colors.white,
-                            ),
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.0))),
-                              elevation: 5.0,
-                              height: 40,
-                              onPressed: () {
+                            //Bottom button
+                            BottomButton(
+                              onTap: () {
                                 setState(() {
                                   showProgress = true;
                                 });
-                                registerUserWithEmailAndPassword(
-                                    emailController.text,
-                                    passwordController.text,
-                                    widget.selectedRole.name,
-                                    "assistant",
-                                    7);
+                                registerUserWithEmailAndPasswordStudent(
+                                  emailController.text,
+                                  passwordController.text,
+                                  widget.selectedRole.name,
+                                  semesterController.text,
+                                  nameController.text,
+                                  rollNoController.text,
+                                );
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()));
                               },
-                              child: Text(
-                                "Register",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              color: Colors.white,
+                              // onTap: () {
+                              //   Navigator.push(context,
+                              //       MaterialPageRoute(builder: (context) => ));
+                              // },
+                              customeWidth: 150,
+                              buttonTitle: 'Sign Up', customeHeight: 35,
+                              borderRadius: 10,
                             ),
                           ],
                         ),
                         SizedBox(
                           height: 20,
-                        ),
-                        Text(
-                          "WEBFUN",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.yellowAccent[400],
-                          ),
                         ),
                       ],
                     ),
@@ -280,48 +335,34 @@ class _RegisterStudentState extends State<RegisterStudent> {
       ),
     );
   }
-  //
-  // void signUp(String email, String password, String role) async {
-  //   try {
-  //     if (_formkey.currentState!.validate()) {
-  //       await _auth.createUserWithEmailAndPassword(
-  //           email: email, password: password);
-  //       await postDetailsToFirestore(email, role);
-  //     }
-  //   } catch (e) {
-  //     print("Error during sign up: $e");
-  //     // Handle the error, display a message to the user, etc.
-  //   }
-  // }
-
-  // postDetailsToFirestore(String email, String role) async {
-  //   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  //   //var user = _auth.currentUser;
-  //   CollectionReference ref = FirebaseFirestore.instance.collection('users');
-  //   ref.doc(user!.uid).set({'email': emailController.text, 'role': role});
-  //   Navigator.pushReplacement(
-  //       context, MaterialPageRoute(builder: (context) => LoginScreen()));
-  // }
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // Example registration function
-  Future<void> registerUserWithEmailAndPassword(String email, String password,
-      String role, String designation, int semester) async {
-    var user = _auth.currentUser;
-
+  Future<void> registerUserWithEmailAndPasswordStudent(
+    String email,
+    String password,
+    String role,
+    String semester,
+    String fullName,
+    String rollNo,
+  ) async {
     try {
       if (_formkey.currentState!.validate()) {
-        await _auth.createUserWithEmailAndPassword(
+        final credentials = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-      }
 
-      // After successful registration, set additional custom data
-      // and attributes for the user based on their role.
-      if (role == 'teacher') {
-        await setTeacherAttributes(user!.uid, designation);
-      } else if (role == 'student') {
-        await setStudentAttributes(user!.uid, semester);
+        print("Created" + credentials.user!.email!);
+        await setStudentAttributes(
+            credentials.user!.uid, fullName, rollNo, semester, role);
+
+        // After successful registration, set additional custom data
+        // and attributes for the user based on their role.
+        // if (role == 'teacher') {
+        //   await setTeacherAttributes(credentials.user!.uid, designation,fullName);
+        // } else if (role == 'student') {
+        //   await setStudentAttributes(credentials.user!.uid,fullName,rollNo, semester);
+        // }
       }
     } catch (error) {
       print('Error creating user: $error');
@@ -329,30 +370,35 @@ class _RegisterStudentState extends State<RegisterStudent> {
   }
 
 // Function to set attributes for a teacher
-  Future<void> setTeacherAttributes(String uid, String designation) async {
-    var user = _auth.currentUser;
-
-    try {
-      await _firestore.collection('users').doc(user!.uid).set({
-        'role': 'teacher',
-        'designation': designation,
-        // Add other teacher-specific attributes
-      });
-    } catch (error) {
-      print('Error setting teacher attributes: $error');
-    }
-  }
+//   Future<void> setTeacherAttributes(
+//       String uid, String designation, String fullName) async {
+//     try {
+//       await _firestore
+//           .collection('users')
+//           .doc(uid)
+//           .set({
+//         'fullName': fullName,
+//         'role': 'teacher',
+//         'designation': designation,
+//         // Add other teacher-specific attributes
+//       });
+//     } catch (error) {
+//       print('Error setting teacher attributes: $error');
+//     }
+//   }
 
 // Function to set attributes for a student
-  Future<void> setStudentAttributes(String uid, int semester) async {
-    var user = _auth.currentUser;
-
+  Future<void> setStudentAttributes(String uid, String fullName, String rollNo,
+      String semester, String role) async {
     try {
-      await _firestore.collection('users').doc(user!.uid).set({
-        'role': 'student',
+      await _firestore.collection('users').doc(uid).set({
+        'fullName': fullName,
+        'rollNo': rollNo,
+        'role': role,
         'semester': semester,
         // Add other student-specific attributes
       });
+      print("Student saved");
     } catch (error) {
       print('Error setting student attributes: $error');
     }
@@ -360,11 +406,9 @@ class _RegisterStudentState extends State<RegisterStudent> {
 
 // Function to retrieve user attributes
   Future<Map<String, dynamic>?> getUserAttributes(String uid) async {
-    var user = _auth.currentUser;
-
     try {
       DocumentSnapshot doc =
-          await _firestore.collection('users').doc(user!.uid).get();
+          await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
         return doc.data() as Map<String, dynamic>;
       } else {
